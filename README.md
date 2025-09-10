@@ -93,7 +93,7 @@ graph TD
 1.  **استنساخ المستودع (أو تحميل الكود):**
 
     ```bash
-    git clone [https://your-repository-url.git](https://your-repository-url.git)
+    git clone [https://github.com/InfoSecNazir/Bank-Management-CLI/tree/a5773eac3fe3fe3259480c4997cc7a2e35d0f998)
     cd your-repository-directory
     ```
 
