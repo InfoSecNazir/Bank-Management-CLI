@@ -173,3 +173,4 @@ admin||admin||-1
 ## 📎 روابط مفيدة
 
 - [صفحة المشروع على GitHub](https://github.com/InfoSecNazir/Bank-Management-CLI)
+- [صفحة المشروع ATNS_ystemعلى GitHub](https://github.com/InfoSecNazir/ATM_Core_System)
