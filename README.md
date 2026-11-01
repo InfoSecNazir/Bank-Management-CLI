@@ -1,176 +1,41 @@
-# 📝 نظام إدارة البنك | Bank Management System
+# Bank-Management-CLI
 
-هذا المشروع هو تطبيق سطر أوامر (Console Application) متطور مكتوب بلغة C++، مصمم ليكون نظامًا متكاملًا لإدارة العمليات البنكية.
+[English](README.md) · [العربية](README_AR.md) · [File index](docs/INDEX.md)
 
----
+Educational C++ console banking application for client records, users, balances, and transactions.
 
-## 🌟 الميزات الرئيسية
+## Repository contents
 
-يقدم النظام مجموعة شاملة من الميزات التي تغطي الجوانب الأساسية للإدارة المصرفية:
+- [main.cpp](main.cpp)
+- [MyBankProject.cpp](MyBankProject.cpp)
 
-### 👤 إدارة المستخدمين (Admin Panel)
+## Setup and use
 
-* 🔐 **نظام تسجيل دخول آمن:** واجهة للتحقق من هوية المستخدمين قبل الوصول للنظام.
-* ➕ **إضافة مستخدم جديد:** إنشاء حسابات لموظفين جدد وتعيين صلاحيات مخصصة لهم.
-* 📋 **عرض قائمة المستخدمين:** استعراض جميع مستخدمي النظام مع كلمات المرور وصلاحياتهم.
-* ✏️ **تحديث بيانات مستخدم:** تعديل كلمة المرور أو تحديث صلاحيات الوصول.
-* ❌ **حذف مستخدم:** إزالة حساب مستخدم من النظام بشكل آمن.
-* 🛡️ **نظام صلاحيات متكامل:** تحكم كامل في الصلاحيات الممنوحة لكل مستخدم (عرض، إضافة، حذف، تعديل، معاملات، إدارة مستخدمين).
+Two independent source versions are included, each with its own `main`. Build one at a time, for example in a Visual Studio Developer Command Prompt:
 
-### 👥 إدارة العملاء (Client Management)
-
-* 🆕 **إضافة عميل جديد:** تسجيل عملاء جدد في قاعدة بيانات النظام بسهولة.
-* 📋 **عرض قائمة العملاء:** عرض جميع عملاء البنك وبياناتهم (رقم الحساب، الاسم، الرصيد، إلخ).
-* 🔍 **بحث عن عميل:** البحث عن عميل محدد باستخدام رقم الحساب للعثور على بياناته بسرعة.
-* ✏️ **تحديث بيانات عميل:** تعديل المعلومات الشخصية والمصرفية للعميل.
-* ❌ **حذف عميل:** إزالة حساب عميل وبياناته من النظام.
-
-### 💰 إدارة المعاملات المالية (Transactions)
-
-* 💸 **إيداع (Deposit):** إضافة أموال إلى رصيد حساب العميل.
-* 💳 **سحب (Withdraw):** خصم مبلغ من رصيد العميل مع التحقق التلقائي من كفاية الرصيد.
-* 📊 **عرض إجمالي الأرصدة:** حساب وعرض الرصيد الإجمالي لجميع عملاء البنك في تقرير واحد.
-
----
-
-## 💻 التقنيات المستخدمة
-
-* **C++:** تم بناء المشروع بالكامل باستخدام لغة C++ القوية، مع التركيز على مبادئ البرمجة الإجرائية.
-* **File I/O:** يتم استخدام التعامل مع الملفات (`fstream`) لتخزين البيانات واسترجاعها، مما يجعله يعمل كقاعدة بيانات بسيطة.
-
----
-
-## 📈 مخططات التدفق (Flowcharts)
-
-### مخطط التدفق العام للنظام
-
-```mermaid
-graph TD
-    A[▶️ بداية البرنامج] --> B{🔐 عرض شاشة تسجيل الدخول}
-    B --> C{📝 إدخال اسم المستخدم وكلمة المرور}
-    C --> D{🛡️ التحقق من صحة البيانات}
-    D -- ❌ بيانات خاطئة --> B
-    D -- ✅ بيانات صحيحة --> E[🏠 عرض القائمة الرئيسية]
-    E --> F{👇 اختيار عملية}
-
-    F -- 👥 إدارة العملاء --> G[🔍 التحقق من الصلاحية]
-    G -- 🚫 غير مصرح --> H[❗️عرض رسالة "وصول مرفوض"]
-    H --> E
-    G -- ✅ مصرح --> I[تنفيذ عملية العميل]
-    I --> E
-
-    F -- 💰 المعاملات --> J[🔍 التحقق من الصلاحية]
-    J -- 🚫 غير مصرح --> H
-    J -- ✅ مصرح --> K[عرض قائمة المعاملات]
-    K --> E
-    
-    F -- 🚪 تسجيل الخروج --> B
+```bat
+cl /EHsc /std:c++17 main.cpp /Fe:bank.exe
+bank.exe
 ```
 
-### مخطط وظيفة إضافة عميل Add_Client()
+The source reads `Clients.txt` and `Users.txt` in the working directory. Use fictional fixtures matching the selected version's record format. Do not link both source files into one executable.
 
-```mermaid
-flowchart TD
-  AStart[بداية Add_Client()] --> R1[قراءة رقم الحساب الجديد من المستخدم]
-  R1 --> L1[تحميل قائمة العملاء من Client.txt]
-  L1 --> Ck{هل رقم الحساب موجود؟}
-  Ck -- نعم --> Err[عرض "العميل موجود"] --> End[نهاية]
-  Ck -- لا --> R2[قراءة PIN، الاسم، الهاتف، الرصيد الابتدائي]
-  R2 --> V[التحقق من صحة الإدخالات (أرقام، رصيد >= 0)]
-  V -- خطأ --> Err2[عرض رسالة خطأ] --> End
-  V -- صحيح --> Create[إنشاء كائن Client]
-  Create --> ToText[تحويل السجل إلى نص بصيغة account||pin||name||phone||balance]
-  ToText --> Append[إضافة السطر إلى ملف Client.txt]
-  Append --> Msg[عرض "تمت الإضافة بنجاح"]
-  Msg --> End
-```
+The console code uses Windows commands such as `cls` or `pause`; Windows is the intended environment. Build commands below describe the source entry point and have not been compiled as part of this documentation update.
 
----
+## Notes
 
-## 🚀 كيفية التشغيل
+This repository demonstrates console programming and file persistence. It has not been validated for real financial use.
 
-### المتطلبات
+[Previous documentation and additional details](README_DETAILS.md)
 
-* مترجم لغة C++ (مثل G++, Clang, أو MSVC).
+## License
 
-### خطوات التشغيل
+The repository currently has no root license file. This documentation does not assign a new license.
 
-1. **استنساخ المستودع (أو تحميل الكود):**
+## Contributing and navigation
 
-    ```bash
-    git clone https://github.com/InfoSecNazir/Bank-Management-CLI
-    cd Bank-Management-CLI
-    ```
+[CONTRIBUTING.md](CONTRIBUTING.md) · [Documentation index](docs/INDEX.md) · [Public project index](https://github.com/InfoSecNazir/InfoSecNazir/blob/main/PROJECTS.md)
 
-2. **ترجمة الكود:** افتح سطر الأوامر ونفذ الأمر التالي لترجمة الملف المصدري:
+## Verification scope
 
-    ```bash
-    g++ main.cpp -o bank_system
-    ```
-
-3. **تشغيل البرنامج:**
-
-    ```bash
-    ./bank_system
-    ```
-
-### الإعداد الأولي
-
-عند التشغيل لأول مرة، سيقوم البرنامج بإنشاء ملفي `Client.txt` و `Users.txt` تلقائيًا.
-
-للدخول كمدير، أضف السطر التالي يدويًا إلى ملف `Users.txt`:
-
-```
-admin||admin||-1
-```
-
-هذا السطر ينشئ مستخدمًا باسم `admin` وكلمة مرور `admin` وصلاحية `-1` التي تعني صلاحيات كاملة.
-
----
-
-## 📁 هيكل المشروع
-
-```
-.
-├── bank_management_system/
-│   ├── main.cpp         # ملف الكود المصدري الرئيسي
-│   ├── Client.txt       # ملف قاعدة بيانات العملاء (يتم إنشاؤه تلقائياً)
-│   └── Users.txt        # ملف قاعدة بيانات المستخدمين (يتم إنشاؤه تلقائياً)
-```
-
----
-
-## الصلاحيات
-
-يستخدم النظام نظام صلاحيات يعتمد على الأعلام (flags) لتعيين أذونات محددة لكل مستخدم:
-
-| الصلاحية           | القيمة (Decimal) | الوصف                                   |
-| :----------------- | :--------------: | :-------------------------------------- |
-| `pListClients`     | 1                | عرض قائمة العملاء                       |
-| `pAddNewClient`    | 2                | إضافة عميل جديد                         |
-| `pDeleteClient`    | 4                | حذف عميل                                |
-| `pUpdateClient`    | 8                | تحديث معلومات العميل                    |
-| `pFindClient`      | 16               | البحث عن عميل                           |
-| `pTransactions`    | 32               | إجراء المعاملات (إيداع/سحب/أرصدة)      |
-| `pManageUsers`     | 64               | إدارة المستخدمين (إضافة/حذف/تحديث/بحث) |
-| `pAll`             | -1               | جميع الصلاحيات                          |
-
-يمكن للمستخدمين الحصول على مجموعة من هذه الصلاحيات، ويتم التحقق من الصلاحيات قبل تنفيذ أي عملية.
-
----
-
-## تحسينات مستقبلية مقترحة
-
-* **إدارة المستخدمين الكاملة:** تنفيذ وظائف حذف، تحديث، وبحث المستخدمين بشكل كامل.
-* **واجهة مستخدم رسومية (GUI):** تحويل التطبيق إلى واجهة رسومية لتجربة مستخدم أفضل.
-* **قاعدة بيانات حقيقية:** استخدام قاعدة بيانات مثل SQLite أو MySQL بدلاً من الملفات النصية لتخزين البيانات بشكل أكثر أمانًا واحترافية.
-* **تحسين الأمان:** تشفير كلمات المرور في ملف المستخدمين.
-* **سجل المعاملات:** إضافة سجل لجميع المعاملات التي تتم على الحسابات.
-* **تقارير:** إنشاء تقارير متنوعة حول العملاء والمعاملات.
-
----
-
-## 📎 روابط مفيدة
-
-- [صفحة المشروع على GitHub](https://github.com/InfoSecNazir/Bank-Management-CLI)
-- [صفحة المشروع ATNS_ystemعلى GitHub](https://github.com/InfoSecNazir/ATM_Core_System)
+Repository organization checked file paths, documentation links, and available dependency manifests. This update did not run or deploy the application.
